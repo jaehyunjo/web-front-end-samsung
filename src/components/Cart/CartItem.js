@@ -2,18 +2,20 @@ import { any, exact, func, number, string } from 'prop-types';
 import styled from 'styled-components/macro';
 import { Counter } from 'components';
 import { currencyKR } from 'utils';
+import { useCart } from '../../contents/cart'
 
 export default function CartItem({
-  product: { id, photo, name, price, amount, maxAmount },
+  product: { id, photo, amount, maxAmount },
   onUpdate,
   ...restProps
 }) {
+  const cartValue = useCart();  
   return (
     <Container {...restProps}>
       <Photo src={photo} alt="" />
       <Info>
-        <Name>{name}</Name>
-        <Price>{currencyKR(price)}</Price>
+        <Name>{cartValue.title}</Name>
+        <Price>{cartValue.totalPrice}</Price>
       </Info>
       <Amount>
         <Counter
@@ -33,8 +35,6 @@ CartItem.propTypes = {
   product: exact({
     id: string,
     photo: string,
-    name: string,
-    price: number,
     amount: number,
     maxAmount: number,
   }).isRequired,

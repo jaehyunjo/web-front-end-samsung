@@ -3,7 +3,6 @@ import { shape, exact, string, bool, number, oneOfType } from 'prop-types';
 import CountDisplay from './CountDisplay';
 import CountButton from './CountButton';
 import CountContainer from './CountContainer';
-
 export function Counter({
   id,
   min,
@@ -15,6 +14,8 @@ export function Counter({
   ...restProps
 }) {
   const [count, setCount] = useState(Number(current));
+  
+
 
   useEffect(() => {
     onUpdate?.(count);

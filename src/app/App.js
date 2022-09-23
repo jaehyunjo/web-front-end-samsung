@@ -1,8 +1,10 @@
 import axios from 'axios';
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import styled, { css } from 'styled-components/macro';
 import GlobalStyle from 'styles/GlobalStyle';
 import { Cart } from 'components';
+import { CartProvider } from '../contents/cart';
+
 
 export default function App() {
   let [loading, setLoading] = useState(true);
@@ -12,6 +14,12 @@ export default function App() {
     products: null,
     totalPrice: 0,
   });
+  
+  const cartValue = useMemo(
+    () => ({
+      carts
+    }),[carts]
+  );
 
   useEffect(() => {
     async function fetchProducts() {
@@ -69,14 +77,13 @@ export default function App() {
   return (
     <>
       <GlobalStyle />
+      <CartProvider value={cartValue}>
       <Container>
         <Cart
-          title={carts.title}
-          products={carts.products}
-          total={carts.totalPrice}
           onUpdate={handleUpdateAmount}
         />
       </Container>
+      </CartProvider>  
     </>
   );
 }

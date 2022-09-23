@@ -1,12 +1,15 @@
 import styled from 'styled-components/macro';
 import CartTitle from './CartTitle';
 import CartList from './CartList';
+import { useCart } from '../../contents/cart'
 
-export function Cart({ title, products, total, onUpdate }) {
+export function Cart({ onUpdate }) {
+
+  const {carts} = useCart();
   return (
     <Container>
-      <CartTitle>{title}</CartTitle>
-      <CartList products={products} total={total} onUpdate={onUpdate} />
+      <CartTitle>{carts.title}</CartTitle>
+      <CartList products={carts.products} total={carts.totalPrice} onUpdate={onUpdate} />
     </Container>
   );
 }
